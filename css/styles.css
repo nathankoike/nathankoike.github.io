@@ -1,0 +1,95 @@
+/* style the text paragraphs */
+p {
+  color: white;
+  opacity: 1;
+  font-family: Arial, sans-serif;
+}
+
+/* style the text paragraphs */
+h2 {
+  color: white;
+  opacity: 1;
+  font-family: Arial, sans-serif;
+}
+
+/* style all links and references */
+a {
+  color: white;
+  font-family: Arial, sans-serif;
+  opacity: 1;
+  text-decoration: none;
+}
+
+/* load the background image and replacement color*/
+body {
+  /* uncomment this to get an image for the background */
+  /* go to the parent directory then into the image directory */
+  /* background-image: url("../images/bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh; */
+  /* this is a dark blue */
+  /* this color reads as a pale purple on a white background */
+  background-color: white;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* container for the sections on the page */
+.content_box {
+  position: absolute;
+  right: 6%;
+  top: 2%;
+  width: 69%; /* nice */
+  margin: 1%;
+  padding: 0px;
+  height: 86%;
+}
+
+.navbar_box {
+  position: absolute;
+  left: 1%;
+  top: 2%;
+  width: 18%;
+  margin: 1%;
+  padding: 0px;
+  height: 86%;
+}
+
+/* the block of text and other elements to be placed on the screen */
+.block {
+  display: block;
+  opacity: 0.9;
+  position: relative;
+  top: 20px;
+  background-color: #000040;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 10px;
+
+  height: 100%;
+}
+
+/* a nav bar */
+.navbar {
+  position: relative;
+  top: 3.4%;
+  width: 100%;
+  background-color: white;
+  overflow: auto;
+  padding: 10px;
+}
+
+/* styling the links within the navbar */
+.navbar a {
+  float: right;
+  color: #000040;
+  opacity: 0.9;
+  padding-left: 40px;
+  font-size: 20px;
+}
