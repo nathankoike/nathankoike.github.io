@@ -363,8 +363,6 @@ function render() {
 	let rendered = document.getElementById("render");
 	if (rendered) rendered.remove();
 
-	console.log(getMobile());
-
 	// Determine whether to serve a mobile page or a desktop page
 	getMobile() || getWidth() < 900 ? renderMobile() : renderDesktop();
 }
