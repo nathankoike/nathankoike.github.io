@@ -140,10 +140,14 @@ function buildAbout(desktop = true) {
         Hamilton College. Though some of my friends might call me DJ SegFault, I
         have a strong theoretical background for Computer Science and a
         particular interest in artificial intelligence, web development, and
-        software engineering. I enjoy all kinds of programming, but I'm probably
-        most fluent in JavaScript, Python, and C++. I also have knowledge of
-        Clojure, Haskell, Rust, and a few others that you can find on my Github,
-        linked above.
+        software engineering. While I enjoy all kinds of programming, I'm
+		probably most fluent in JavaScript, Python, and C++, but I also have
+		knowledge of Clojure, Haskell, Rust, and a few others. This is one of
+		those "take me at my word" situations since, by special request, I've
+		had to hide all of the code I wrote in languages other than JS and
+		Python (ignoring the one batch/bash project I have). As much as I wish I
+		could share my code and versatility as a developer, I am unable to do so
+		at this time.
       </p>
       <br><br>
       <p>
