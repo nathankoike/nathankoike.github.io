@@ -214,8 +214,16 @@ function buildProjects() {
 
 // Render the desktop version of the page
 function renderDesktop() {
+	// If the page is desktop, do nothing
+	let rendered = document.getElementById("desktop");
+	if (rendered) return;
+
+	// If there is a mobile view, remove it
+	rendered = document.getElementById("mobile");
+	if (rendered) rendered.remove();
+
 	let desktopRender = document.createElement("div");
-	desktopRender.id = "render";
+	desktopRender.id = "desktop";
 
 	// Build the navbar
 	let navbar = buildNavbarTemplate();
@@ -267,8 +275,16 @@ function renderDesktop() {
 
 // Render the mobile version of the page
 function renderMobile() {
+	// If the page is mobile, do nothing
+	let rendered = document.getElementById("mobile");
+	if (rendered) return;
+
+	// If there is a desktop view, remove it
+	rendered = document.getElementById("desktop");
+	if (rendered) rendered.remove();
+
 	let mobileRender = document.createElement("div");
-	mobileRender.id = "render";
+	mobileRender.id = "mobile";
 
 	let navbar = buildNavbarTemplate();
 
@@ -363,9 +379,6 @@ function renderMobile() {
 
 // Decide which version of the page to render
 function render() {
-	let rendered = document.getElementById("render");
-	if (rendered) rendered.remove();
-
 	// Determine whether to serve a mobile page or a desktop page
 	getMobile() || getWidth() < 900 ? renderMobile() : renderDesktop();
 }
