@@ -131,6 +131,11 @@ function buildAbout(desktop = true) {
 	aboutImg.style.padding = "20px";
 
 	if (desktop) aboutImg.style.cssFloat = "left";
+	else {
+		aboutImg.style.display = "block";
+		aboutImg.style.marginLeft = "auto";
+		aboutImg.style.marginRight = "auto";
+	}
 
 	let aboutContent = document.createElement("P");
 	aboutContent.innerHTML = `
@@ -293,6 +298,8 @@ function renderMobile() {
 	name.innerHTML = "<b>NATE KOIKE</b>";
 	name.className = "name";
 	name.style.textAlign = "left";
+	name.style.float = "right";
+	name.style.marginRight = "20px";
 
 	// Make menu page
 	let menu = document.createElement("DIV");
