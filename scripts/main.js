@@ -141,17 +141,17 @@ function buildAbout(desktop = true) {
 	aboutContent.innerHTML = `
       <br>
       <p>
-        I'm a System Analyst / Developer at eWorld and a recent graduate from
-        Hamilton College. Though some of my friends might call me DJ SegFault, I
-        have a strong theoretical background for Computer Science and a
-        particular interest in artificial intelligence, web development, and
-        software engineering. While I enjoy all kinds of programming, I'm
-		probably most fluent in JavaScript, Python, and C++, but I also have
-		knowledge of Clojure, Haskell, Rust, and a few others. This is one of
-		those "take me at my word" situations since I've had to hide all of the
-		code I wrote in languages other than JS and Python (ignoring the one
-		batch/bash project I have). As much as I wish I could share my code and
-		versatility as a developer, I am presently unable to do so.
+        I'm a Senior Developer and Tech Lead at eWorld and a somewhat recent
+		graduate from Hamilton College. Though some of my friends might call me
+		DJ SegFault, I have a strong theoretical background for Computer Science
+		and a particular interest in artificial intelligence, web development,
+		and software engineering. While I enjoy all kinds of programming, I'm
+		probably most fluent in JavaScript, Python, and Java, but I also have
+		knowledge of C++, Clojure, Haskell, Rust, and a few others. This is one
+		of those "take me at my word" situations since I've had to hide almost
+		all the code I wrote in languages other than JS and Python. As much as I
+		wish I could share my code and versatility as a developer, I am
+		presently unable to do so.
       </p>
       <br><br>
       <p>
