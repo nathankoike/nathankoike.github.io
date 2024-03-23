@@ -6,6 +6,26 @@ let body = document.body;
 body.style.padding = "0px";
 body.style.margin = "0px";
 
+const ABOUT = `
+I'm a Software Developer at eWorld and a somewhat recent graduate from Hamilton
+College. Though some of my friends might call me DJ SegFault, I have a strong
+theoretical background for Computer Science and a particular interest in
+artificial intelligence and web development. I enjoy all kinds of programming,
+and I'm most fluent in JavaScript, Python, and Java. However, I also have
+experience in C++, Ruby, Clojure, Haskell, Rust, and a few others.
+
+Aside from Computer Science, I also study Japanese. Though I'm not the best, I
+do have a certification to prove some level of proficiency uploaded to my
+LinkedIn, linked above. Cliché as this sounds, I had a truly wonderful and
+life-changing experience when I studied abroad in Kyoto during the Spring
+semester of 2020. Even with my early departure due to a certain global pandemic,
+I would still say this easily ranks as the best semester of my college career.
+After returning home and living with huge time zone differences for a semester,
+I made my return to "The Hill," the place I called my home for the prior
+two-and-a-half years, and graduated on time with a double major in both Computer
+Science and Asian Studies.
+`;
+
 const PROJECT_DESCRIPTIONS = {
 	"Project::SCRIBE": [
 		"https://github.com/nathankoike/project-scribe",
@@ -115,6 +135,15 @@ function buildNavbarTemplate() {
 	return navbar;
 }
 
+// Create the header for a section
+function buildSectionHeader(title) {
+	let header = document.createElement("H2");
+	header.innerText = title;
+	header.style.marginTop = "20px";
+
+	return header;
+}
+
 // Build the about section
 function buildAbout(desktop = true) {
 	let about = document.createElement("DIV");
@@ -122,15 +151,16 @@ function buildAbout(desktop = true) {
 	about.style.padding = desktop ? "70px 20px 0px" : "145px 20px 0px";
 	if (desktop) about.style.cssFloat = "left";
 
-	let aboutHeader = document.createElement("H2");
-	aboutHeader.innerText = "ABOUT ME";
+	// Create Section Header
+	let aboutHeader = buildSectionHeader("ABOUT ME");
 
+	// Create about image
 	let aboutImg = document.createElement("IMG");
 	aboutImg.src = "images/headshot.jpg";
 	aboutImg.style.width = desktop ? "30%" : "80%";
 	aboutImg.style.maxWidth = desktop ? "512px" : "80%";
-	aboutImg.style.height = "auto";
-	aboutImg.style.padding = "20px";
+	// aboutImg.style.height = "auto";
+	// aboutImg.style.padding = "20px";
 
 	if (desktop) aboutImg.style.cssFloat = "left";
 	else {
@@ -139,36 +169,25 @@ function buildAbout(desktop = true) {
 		aboutImg.style.marginRight = "auto";
 	}
 
-	let aboutContent = document.createElement("P");
-	aboutContent.innerHTML = `
-      <br>
-      <p>
-        I'm a Software Developer at eWorld and a somewhat recent graduate from
-		Hamilton College. Though some of my friends might call me DJ SegFault, I
-		have a strong theoretical background for Computer Science and a
-		particular interest in artificial intelligence and web development.
-		While I enjoy all kinds of programming, I'm most fluent in JavaScript,
-		Python, and Java, but I also have knowledge of C++, Ruby, Clojure, Haskell,
-		Rust, and a few others. This is one of those "take me at my word"
-		situations since I've had to hide almost all the code I wrote in
-		languages other than JS and Python. As much as I wish I could share my
-		code and versatility as a developer, I am presently unable to do so.
-      </p>
-      <br><br>
-      <p>
-        Aside from Computer Science, I also study Japanese. Though I'm not the
-        best, I do have a certification to prove some level of proficiency
-        uploaded to my LinkedIn, linked above. Cliché as this sounds, I had a
-        truly wonderful and life-changing experience when I studied abroad in
-        Kyoto during the Spring semester of 2020. Even with my early departure
-        due to a certain global pandemic, I would still say this easily ranks as
-        the best semester of my college career. After returning home and living
-        with huge time zone differences for a semester, I made my return to "The
-        Hill," the place I called my home for the prior two-and-a-half years,
-		and graduated on time with a double major in both Computer Science and
-		Asian Studies.
-      </p>`;
+	// Create about text
+	let aboutContent = document.createElement("DIV");
+	aboutContent.style.padding = "20px";
 
+	// Split on newline, then join on " " for proper spacing, then split on "  "
+	// to remove what should've been a newline, then process and add to div
+	ABOUT.split("\n")
+		.join(" ")
+		.split("  ")
+		.filter(p => p.length)
+		.forEach(p => {
+			let paragraph = document.createElement("P");
+			paragraph.style.paddingBottom = "20px";
+			paragraph.innerText = p;
+
+			aboutContent.appendChild(paragraph);
+		});
+
+	// Change order depending on if rendering for mobile or desktop
 	if (desktop) {
 		about.appendChild(aboutHeader);
 		about.appendChild(aboutImg);
@@ -218,12 +237,10 @@ function buildProject(projectName, projectLink, projectDescription) {
 function buildProjects() {
 	let projects = document.createElement("DIV");
 	projects.id = "projects";
-	projects.style.padding = "20px";
 	projects.style.cssFloat = "left";
 
 	// Make Section Header
-	let projectsHeader = document.createElement("H2");
-	projectsHeader.innerText = "PROJECTS AND PAPERS";
+	let projectsHeader = buildSectionHeader("PROJECTS AND PAPERS");
 
 	let projectsContent = document.createElement("UL");
 
@@ -250,6 +267,7 @@ function renderDesktop() {
 	rendered = document.getElementById("mobile");
 	if (rendered) rendered.remove();
 
+	// Create the element to render
 	let desktopRender = document.createElement("div");
 	desktopRender.id = "desktop";
 
