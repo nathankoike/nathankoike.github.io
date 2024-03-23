@@ -1,3 +1,5 @@
+const parser = new DOMParser();
+
 let body = document.body;
 
 // Set the CSS for the body
@@ -180,6 +182,38 @@ function buildAbout(desktop = true) {
 	return about;
 }
 
+// Build and return a single project
+function buildProject(projectName, projectLink, projectDescription) {
+	let project = document.createElement("LI");
+
+	// Setup the sub-elements for the project
+	let link = document.createElement("A");
+	let desc = document.createElement("DIV");
+
+	// Set the link attributes/properties
+	link.classList.add("project");
+	link.href = projectLink;
+	link.target = "_blank";
+	link.innerText = projectName;
+
+	// Get and set the description
+	let parsedDescription = parser
+		.parseFromString(projectDescription, "text/html")
+		.getElementsByTagName("body")
+		.item(0).children;
+
+	for (const child of parsedDescription) {
+		child.style.paddingBottom = "20px";
+		desc.appendChild(child);
+	}
+
+	// Append child elements
+	project.appendChild(link);
+	project.appendChild(desc);
+
+	return project;
+}
+
 // Build the projects section
 function buildProjects() {
 	let projects = document.createElement("DIV");
@@ -187,9 +221,7 @@ function buildProjects() {
 	projects.style.padding = "20px";
 	projects.style.cssFloat = "left";
 
-	// Add a horizontal line
-	projects.appendChild(document.createElement("HR"));
-
+	// Make Section Header
 	let projectsHeader = document.createElement("H2");
 	projectsHeader.innerText = "PROJECTS AND PAPERS";
 
@@ -197,17 +229,9 @@ function buildProjects() {
 
 	// Add the projects to the list
 	Object.keys(PROJECT_DESCRIPTIONS).forEach(proj => {
-		let project = document.createElement("LI");
+		let [projectLink, projectDesc] = PROJECT_DESCRIPTIONS[proj];
 
-		let pj = PROJECT_DESCRIPTIONS[proj];
-
-		project.innerHTML = `<a\
-      class="project"
-      href="${pj[0]}"\
-      target="_blank"> ${proj} </a>
-      ${pj[1]}<br>`;
-
-		projectsContent.appendChild(project);
+		projectsContent.appendChild(buildProject(proj, projectLink, projectDesc));
 	});
 
 	projects.appendChild(projectsHeader);
@@ -270,8 +294,8 @@ function renderDesktop() {
 	navbar.appendChild(navlist);
 
 	desktopRender.appendChild(navbar);
-
 	desktopRender.appendChild(buildAbout());
+	desktopRender.appendChild(document.createElement("HR"));
 	desktopRender.appendChild(buildProjects());
 
 	body.appendChild(desktopRender);
