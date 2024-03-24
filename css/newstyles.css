@@ -15,6 +15,7 @@ a.menu {
   padding: 0px;
   display: block;
   text-decoration: none;
+  position: relative;
 }
 
 
@@ -113,10 +114,13 @@ input[type="checkbox"]:checked ~ span:nth-of-type(3){
   transform: translate(30px,-11px) rotatez(45deg);
 }
 
-.menu {
-  height: 100%
-  width: 0;
-  position: fixed;
+/* CITE: https://www.w3schools.com/howto/howto_js_fullscreen_overlay.asp */
+div.menu {
+  color: white;
+  width: 100%;
+  height: 0%;
+  background: rgba(255, 255, 255, 0);
+  display: "block";  position: fixed;
   z-index: 1;
   top: 0;
   left: 0;

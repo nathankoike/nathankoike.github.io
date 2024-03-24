@@ -6,6 +6,7 @@ let body = document.body;
 body.style.padding = "0px";
 body.style.margin = "0px";
 
+// About section text
 const ABOUT = `
 I'm a Software Developer at eWorld and a somewhat recent graduate from Hamilton
 College. Though some of my friends might call me DJ SegFault, I have a strong
@@ -26,6 +27,7 @@ two-and-a-half years, and graduated on time with a double major in both Computer
 Science and Asian Studies.
 `;
 
+// Map of project -> description
 const PROJECT_DESCRIPTIONS = {
 	"Project::SCRIBE": [
 		"https://github.com/nathankoike/project-scribe",
@@ -135,6 +137,66 @@ function buildNavbarTemplate() {
 	return navbar;
 }
 
+// Build a navbar button for the desktop site
+function buildDesktopNavbarButton(buttonLink, buttonText) {
+	// Make and style the button
+	let button = document.createElement("SPAN");
+	button.style.cssFloat = "right";
+	button.style.paddingRight = "20px";
+
+	// Make and style the link
+	let link = document.createElement("A");
+	link.classList.add("navbar");
+	link.style.right = "0";
+
+	// Set the link for the button
+	link.href = buttonLink;
+	link.target = "_blank";
+	link.innerText = buttonText;
+
+	button.appendChild(link);
+
+	return button;
+}
+
+// Build the navbar for the desktop site
+function buildDesktopNavbar() {
+	let navbar = buildNavbarTemplate();
+
+	let navlist = document.createElement("UL");
+	navlist.style.margin = "0px";
+	navlist.style.padding = "20px 0px";
+
+	// Add my name. This goes on the left
+	let home = document.createElement("SPAN");
+	home.innerHTML = `<a class="name"><b>Nate Koike</b></a>`;
+	home.style.left = "0";
+	home.style.padding = "20px";
+
+	// Append name and navbar links
+	navlist.appendChild(home);
+
+	navlist.appendChild(
+		buildDesktopNavbarButton(
+			"https://www.linkedin.com/in/nate-koike/",
+			"LinkedIn"
+		)
+	);
+
+	navlist.appendChild(
+		buildDesktopNavbarButton("https://github.com/nathankoike/", "Github")
+	);
+
+	navlist.appendChild(
+		buildDesktopNavbarButton("documents/resume.pdf", "Résumé")
+	);
+
+	// Append the list of nav items to the navbar
+	navbar.appendChild(navlist);
+
+	return navbar;
+}
+
 // Create the header for a section
 function buildSectionHeader(title) {
 	let header = document.createElement("H2");
@@ -148,7 +210,8 @@ function buildSectionHeader(title) {
 function buildAbout(desktop = true) {
 	let about = document.createElement("DIV");
 	about.id = "about";
-	about.style.padding = desktop ? "70px 20px 0px" : "145px 20px 0px";
+	// about.style.padding = desktop ? "70px 20px 0px" : "145px 20px 0px";
+	about.style.paddingTop = "60px";
 	if (desktop) about.style.cssFloat = "left";
 
 	// Create Section Header
@@ -159,11 +222,17 @@ function buildAbout(desktop = true) {
 	aboutImg.src = "images/headshot.jpg";
 	aboutImg.style.width = desktop ? "30%" : "80%";
 	aboutImg.style.maxWidth = desktop ? "512px" : "80%";
-	// aboutImg.style.height = "auto";
-	// aboutImg.style.padding = "20px";
+	aboutImg.style.height = "auto";
+	aboutImg.style.padding = "20px";
 
-	if (desktop) aboutImg.style.cssFloat = "left";
-	else {
+	if (!desktop) {
+		aboutImg.style.paddingTop = "125px";
+	}
+
+	// Left justify image for desktop, center for mobile
+	if (desktop) {
+		aboutImg.style.cssFloat = "left";
+	} else {
 		aboutImg.style.display = "block";
 		aboutImg.style.marginLeft = "auto";
 		aboutImg.style.marginRight = "auto";
@@ -271,52 +340,50 @@ function renderDesktop() {
 	let desktopRender = document.createElement("div");
 	desktopRender.id = "desktop";
 
-	// Build the navbar
-	let navbar = buildNavbarTemplate();
+	// Create a nice horizontal divider
+	let horizontal = document.createElement("SPAN");
+	horizontal.style.marginLeft = "20px";
+	horizontal.style.marginRight = "20px";
 
-	let navlist = document.createElement("UL");
+	let line = document.createElement("HR");
+	line.style.marginLeft = "20px";
+	line.style.marginRight = "20px";
 
-	let home = document.createElement("SPAN");
-	home.innerHTML = `<a class="name"><b>Nate Koike</b></a>`;
+	horizontal.appendChild(line);
 
-	let linkedin = document.createElement("SPAN");
-	linkedin.innerHTML = `<a class="navbar"\
-    href="https://www.linkedin.com/in/nate-koike/"\
-    target="_blank"
-    style="right: 0">
-      LinkedIn
-    </a>`;
-
-	let github = document.createElement("SPAN");
-	github.innerHTML = `<a class="navbar"\
-    href="https://github.com/nathankoike"\
-    target="_blank">Github</a>`;
-
-	let resume = document.createElement("SPAN");
-	resume.innerHTML = `<a class="navbar"\
-    href="documents/resume.pdf"\
-    target="_blank">Résumé</a>`;
-
-	// Finish styling all the elements and add them to the navbar
-	[home, linkedin, github, resume].forEach(e => {
-		if (e != home) e.style.cssFloat = "right";
-
-		e.style.padding = "0px 20px";
-
-		navlist.appendChild(e);
-	});
-
-	navlist.style.margin = "0px";
-	navlist.style.padding = "20px 0px";
-
-	navbar.appendChild(navlist);
-
-	desktopRender.appendChild(navbar);
+	// Add children
+	desktopRender.appendChild(buildDesktopNavbar());
 	desktopRender.appendChild(buildAbout());
-	desktopRender.appendChild(document.createElement("HR"));
+	desktopRender.appendChild(horizontal);
 	desktopRender.appendChild(buildProjects());
 
+	// Render desktop
 	body.appendChild(desktopRender);
+}
+
+// Build a navbar button for the desktop site
+function buildMobileNavbarButton(buttonLink, buttonText) {
+	// Make and style the button
+	let button = document.createElement("DIV");
+	button.style.display = "block";
+	button.style.position = "relative";
+
+	// Make and style the link
+	let link = document.createElement("A");
+	link.classList.add("menu");
+	link.style.textAlign = "center";
+
+	let linkText = document.createElement("B");
+	linkText.innerText = buttonText;
+
+	// Set the link for the button
+	link.href = buttonLink;
+	link.target = "_blank";
+	link.appendChild(linkText);
+
+	button.appendChild(link);
+
+	return button;
 }
 
 // Render the mobile version of the page
@@ -338,7 +405,6 @@ function renderMobile() {
 	let name = document.createElement("P");
 	name.innerHTML = "<b>NATE KOIKE</b>";
 	name.className = "name";
-	name.style.textAlign = "left";
 	name.style.float = "right";
 	name.style.marginRight = "20px";
 
@@ -347,43 +413,19 @@ function renderMobile() {
 	menu.id = "menu";
 	menu.className = "menu";
 
-	// CITE: https://www.w3schools.com/howto/howto_js_fullscreen_overlay.asp
-	menu.style.color = "white";
-	menu.style.width = "100%";
-	menu.style.height = "0%";
-	menu.style.background = "rgba(255, 255, 255, 0)";
-	menu.style.display = "block";
-
 	// Populate the menu
-	let linkedin = document.createElement("DIV");
-	linkedin.innerHTML = `<a class="menu"\
-    href="https://www.linkedin.com/in/nate-koike/"\
-    target="_blank"
-    style="text-align: center; position: relative">
-      <b>LinkedIn</b>
-    </a>`;
+	menu.appendChild(
+		buildMobileNavbarButton(
+			"https://www.linkedin.com/in/nate-koike/",
+			"LinkedIn"
+		)
+	);
 
-	menu.appendChild(linkedin);
+	menu.appendChild(
+		buildMobileNavbarButton("https://github.com/nathankoike/", "Github")
+	);
 
-	let github = document.createElement("DIV");
-	github.innerHTML = `<a class="menu"\
-    href="https://github.com/nathankoike/"\
-    target="_blank"
-    style="text-align: center; position: relative">
-      <b>Github</b>
-    </a>`;
-
-	menu.appendChild(github);
-
-	let resume = document.createElement("DIV");
-	resume.innerHTML = `<a class="menu"\
-    href="documents/resume.pdf"\
-    target="_blank"
-    style="text-align: center; position: relative">
-      <b>Résumé</b>
-    </a>`;
-
-	menu.appendChild(resume);
+	menu.appendChild(buildMobileNavbarButton("documents/resume.pdf", "Résumé"));
 
 	// Make hamburger icon
 	// CITE: https://codepen.io/Danilo06/pen/PoNNvGm
@@ -406,8 +448,10 @@ function renderMobile() {
 
 	// Add event listener to hamburegr icon
 	hamburger.addEventListener("mouseup", () => {
-		menu.style.height = menu.style.height == "0%" ? "100%" : "0%";
+		menu.style.height =
+			!menu.style.height || menu.style.height == "0%" ? "100%" : "0%";
 		menu.style.background =
+			!menu.style.background ||
 			menu.style.background == "rgba(255, 255, 255, 0)"
 				? "rgba(255, 255, 255, 100)"
 				: "rgba(255, 255, 255, 0)";
